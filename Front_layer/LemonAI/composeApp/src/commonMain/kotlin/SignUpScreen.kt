@@ -19,9 +19,13 @@ fun SignUpScreen() {
     {
         Column(modifier = Modifier.fillMaxSize()) {
             NormalTextComponent(value = "Доброго времени суток,")
-            HeadingTextComponent(value = "Создайтк аккаунт")
+            HeadingTextComponent(value = "Создайтe аккаунт")
 
             MyTextFieldComponent(labelValue = "Логин")
+            PasswordTextFieldComponent(labelValue = "Пароль")
+
+            //дата рождения
+            //пол
         }
 
     }
