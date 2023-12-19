@@ -24,17 +24,16 @@ fun SignUpScreen() {
             NormalTextComponent(value = "Доброго времени суток,")
             HeadingTextComponent(value = "Создайтe аккаунт")
 
+            MyTextFieldComponent(labelValue = "Имя")
+            MyTextFieldComponent(labelValue = "Фамилия")
             MyTextFieldComponent(labelValue = "Логин")
             PasswordTextFieldComponent(labelValue = "Пароль")
-
-            //дата рождения
-            //пол
             Spacer(modifier = Modifier.height(80.dp))
-
             ButtonComponent("Зарегестрироваться")
-
             DividerTextComponent()
+            ClickableLoginTextComponent(onTextSelected = {
 
+            })
         }
     }
 }
