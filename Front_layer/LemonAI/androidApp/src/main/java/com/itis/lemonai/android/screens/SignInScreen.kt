@@ -35,7 +35,7 @@ fun SignInScreen() {
             MyTextFieldComponent(labelValue = "Логин")
             PasswordTextFieldComponent(labelValue = "Пароль")
             Spacer(modifier = Modifier.height(80.dp))
-            ButtonComponent(value = "Войти", onButtonClicked = { AppRouter.navigateTo(Screen.HistoryScreen) })
+            ButtonComponent(value = "Войти", onButtonClicked = { AppRouter.navigateTo(Screen.ProfileScreen) })
             DividerTextComponent()
             ClickableLoginTextComponent(tryingToLogIn = true, onTextSelected = {
                 AppRouter.navigateTo(Screen.SignUpScreen)
