@@ -39,7 +39,9 @@ fun SignUpScreen() {
             MyTextFieldComponent(labelValue = "Логин")
             PasswordTextFieldComponent(labelValue = "Пароль")
             Spacer(modifier = Modifier.height(80.dp))
-            ButtonComponent("Зарегестрироваться", onButtonClicked = { AppRouter.navigateTo(Screen.ProfileScreen) })
+            ButtonComponent("Зарегестрироваться", onButtonClicked = { AppRouter.navigateTo(
+                Screen.MainScreen
+            ) })
             DividerTextComponent()
             ClickableLoginTextComponent(onTextSelected = { AppRouter.navigateTo(Screen.SignInScreen) })
         }

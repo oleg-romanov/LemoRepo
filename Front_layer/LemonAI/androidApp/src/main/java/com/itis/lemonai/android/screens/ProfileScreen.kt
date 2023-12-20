@@ -43,7 +43,6 @@ fun ProfileScreen() {
         // Имя пользователя
         ProfileField(
             value = firstName.value,
-            onValueChange = { firstName.value = it },
             label = "Имя",
             icon = FeatherIcons.Info
         )
@@ -51,7 +50,6 @@ fun ProfileScreen() {
         // Фамилия
         ProfileField(
             value = lastName.value,
-            onValueChange = { lastName.value = it },
             label = "Фамилия",
             icon = FeatherIcons.Info
         )
@@ -59,7 +57,6 @@ fun ProfileScreen() {
         // Логин
         ProfileField(
             value = username.value,
-            onValueChange = { username.value = it },
             label = "Логин",
             icon = FeatherIcons.Info
         )
