@@ -8,6 +8,7 @@ sealed class Screen {
     object SignUpScreen : Screen()
     object SignInScreen : Screen()
     object HistoryScreen : Screen()
+    object MainScreen : Screen()
     object CameraScreen : Screen()
     object ProfileScreen : Screen()
 }

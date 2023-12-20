@@ -12,6 +12,7 @@ import com.itis.lemonai.android.screens.SignUpScreen
 import com.itis.lemonai.android.navigation.AppRouter
 import com.itis.lemonai.android.navigation.Screen
 import com.itis.lemonai.android.screens.CameraScreen
+import com.itis.lemonai.android.screens.MainScreen
 import com.itis.lemonai.android.screens.ProfileScreen
 
 @Composable
@@ -26,6 +27,10 @@ fun LemonApp() {
             when (currentState.value) {
                 is Screen.SignUpScreen -> {
                     SignUpScreen()
+                }
+
+                is Screen.MainScreen -> {
+                    MainScreen()
                 }
 
                 is Screen.SignInScreen -> {
