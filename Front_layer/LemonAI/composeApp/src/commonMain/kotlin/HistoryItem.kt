@@ -1,1 +1,0 @@
-data class HistoryItem(val date: String, val shop: String, val result: String)
