@@ -9,18 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.itis.lemonai.Greeting
+import com.itis.lemonai.android.app.LemonApp
+import com.itis.lemonai.android.navigation.AppRouter
+import com.itis.lemonai.android.navigation.Screen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                Surface(
+                LemonApp()
+                /* Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     GreetingView(Greeting().greet())
-                }
+                } */
             }
         }
     }

@@ -39,9 +39,13 @@ android {
 }
 
 dependencies {
+    implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
+    implementation ("androidx.navigation:navigation-compose:2.7.6")
     implementation(projects.shared)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
