@@ -1,6 +1,6 @@
 import psycopg2
 
-class Creator:
+class Connection:
     def __init__(self, host_ip, db_name, username, password):
         self.host_ip = host_ip
         self.password = password
