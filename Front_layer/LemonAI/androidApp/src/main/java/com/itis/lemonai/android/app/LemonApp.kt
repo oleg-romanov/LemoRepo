@@ -11,6 +11,7 @@ import com.itis.lemonai.android.screens.SignInScreen
 import com.itis.lemonai.android.screens.SignUpScreen
 import com.itis.lemonai.android.navigation.AppRouter
 import com.itis.lemonai.android.navigation.Screen
+import com.itis.lemonai.android.screens.ProfileScreen
 
 @Composable
 fun LemonApp() {
@@ -32,6 +33,10 @@ fun LemonApp() {
 
                 is Screen.HistoryScreen -> {
                     HistoryScreen()
+                }
+
+                is Screen.ProfileScreen -> {
+                    ProfileScreen()
                 }
             }
         }
