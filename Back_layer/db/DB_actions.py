@@ -57,8 +57,3 @@ class Connection:
         print("History of scanning was added")
         self.conn.commit()
         cursor.close()
-
-x = Connection("127.0.0.1", "postgres", "postgres", "`123qwe")
-x.table_creation()
-x.user_insert("Bibletum", "PaShka", "Pavel", "Remizov")
-x.history_insert("Bibletum", "27.09.2023", "good_quality", "Pyateroschka")
