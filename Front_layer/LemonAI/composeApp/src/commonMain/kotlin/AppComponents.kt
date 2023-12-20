@@ -10,17 +10,13 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.VapeFree
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
@@ -45,6 +41,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.Eye
+import compose.icons.feathericons.EyeOff
 
 @Composable
 fun NormalTextComponent(value: String) {
@@ -112,7 +111,7 @@ fun PasswordTextFieldComponent(
         mutableStateOf("")
     }
 
-    //val passwordVisible = remember {mutableStateOf(false)}
+    val passwordVisible = remember {mutableStateOf(false)}
 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth().clip(componentsShape.small),
@@ -133,11 +132,11 @@ fun PasswordTextFieldComponent(
         onValueChange = {
             password.value = it
         },
-        /* trailingIcon = {
+        trailingIcon = {
             val iconImage = if (passwordVisible.value) {
-                Icons.Filled.Visibility
+                FeatherIcons.Eye
             } else {
-                Icons.Filled.VisibilityOff
+                FeatherIcons.EyeOff
             }
 
             var discription = if (passwordVisible.value) {
@@ -149,8 +148,8 @@ fun PasswordTextFieldComponent(
             IconButton(onClick = { passwordVisible.value = !passwordVisible.value} ){
                 Icon(imageVector = iconImage, contentDescription = discription)
             }
-        },*/
-        visualTransformation = PasswordVisualTransformation()
+        },
+        visualTransformation = if(passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
     )
 }
 

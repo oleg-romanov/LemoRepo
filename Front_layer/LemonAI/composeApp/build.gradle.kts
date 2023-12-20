@@ -36,6 +36,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
             implementation(compose.material)
             implementation(compose.materialIconsExtended)
             implementation(compose.ui)
