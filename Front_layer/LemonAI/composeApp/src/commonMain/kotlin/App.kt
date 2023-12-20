@@ -12,6 +12,7 @@ fun App() {
         modifier = Modifier.fillMaxSize(),
         color = Color.White
     ){
+        //SignInScreen()
         SignUpScreen()
     }
 }

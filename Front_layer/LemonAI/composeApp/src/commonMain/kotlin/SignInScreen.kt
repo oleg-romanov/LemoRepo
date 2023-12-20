@@ -26,7 +26,7 @@ fun SignInScreen() {
             Spacer(modifier = Modifier.height(80.dp))
             ButtonComponent(value = "Войти")
             DividerTextComponent()
-            ClickableLoginTextComponent(onTextSelected = {
+            ClickableLoginTextComponent(tryingToLogIn = true, onTextSelected = {
 
             })
         }

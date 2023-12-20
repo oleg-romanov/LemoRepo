@@ -31,7 +31,7 @@ fun SignUpScreen() {
             Spacer(modifier = Modifier.height(80.dp))
             ButtonComponent("Зарегестрироваться")
             DividerTextComponent()
-            ClickableLoginTextComponent(tryingToLogIn = true, onTextSelected = {
+            ClickableLoginTextComponent(onTextSelected = {
 
             })
         }
