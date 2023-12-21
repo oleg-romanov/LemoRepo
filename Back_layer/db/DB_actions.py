@@ -8,6 +8,7 @@ class Connection:
         self.username = username
         self.password = password
         self.conn = psycopg2.connect(dbname=self.db_name, user=self.username, password=self.password, host=self.host_ip)
+        self.conn.autocommit = True
 
     def table_creation(self):
         cursor = self.conn.cursor()
@@ -43,7 +44,6 @@ class Connection:
                        f"'{name}', "
                        f"'{surname}')")
         print("User was added")
-        self.conn.commit()
         cursor.close()
 
     def history_insert(self, login, time, result, shop):
@@ -55,5 +55,16 @@ class Connection:
                        f"'{result}', "
                        f"'{shop}')")
         print("History of scanning was added")
-        self.conn.commit()
         cursor.close()
+
+    def get_history(self, login):
+        cursor = self.conn.cursor()
+
+        cursor.execute(f"SELECT "
+                       f"Login,"
+                       f"DATE(Time),"
+                       f"Result,"
+                       f"Shop"
+                       f"   FROM History"
+                       f"   WHERE login='{login}'")
+        return [item for item in cursor]
