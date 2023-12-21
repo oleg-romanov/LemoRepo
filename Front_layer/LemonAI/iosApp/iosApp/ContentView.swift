@@ -2,11 +2,32 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greet()
+    @State private var isLoggedIn = false
+
+    @State private var isRegistrationActive = true
 
 	var body: some View {
-		Text(greet)
+        // TODO: Get isLoggedIn from Userdefaults logic
+        if isLoggedIn {
+            // TODO: Go to tabbar logic
+        } else {
+            AuthFlowView(isRegistrationActive: $isRegistrationActive)
+        }
 	}
+}
+
+struct AuthFlowView: View {
+    @Binding var isRegistrationActive: Bool
+    
+    var body: some View {
+        VStack {
+            if isRegistrationActive {
+                RegistrationView(isRegistrationActive: $isRegistrationActive)
+            } else {
+                AuthorizationView(isRegistrationActive: $isRegistrationActive)
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
