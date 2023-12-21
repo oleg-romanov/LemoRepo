@@ -38,11 +38,11 @@ struct AuthorizationView: View {
                         },
                         label: {
                             Text("Войти")
-                                .font(.system(size: 24))
+                                .font(.system(size: 20))
                                 .frame(width: geometry.size.width - 32, height: 54)
                                 .foregroundStyle(.white)
                                 .background(Color.blue)
-                                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         }).padding(.vertical, 16)
                     
                     
