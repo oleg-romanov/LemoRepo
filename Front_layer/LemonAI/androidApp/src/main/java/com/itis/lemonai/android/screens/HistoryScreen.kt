@@ -1,15 +1,12 @@
 package com.itis.lemonai.android.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -24,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -49,13 +45,15 @@ fun HistoryScreen() {
     var expanded = remember { mutableStateOf(false) }
     var sortingOption = remember { mutableStateOf(SortingOption.DATE) }
 
-    var items = generateDummyData(100)
+    var items = remember { mutableStateOf(generateDummyData(100)) }
+
+    //var items: List<HistoryItem> //= generateDummyData(5)
 
     // Функция для сортировки элементов
     val sortedItems = when (sortingOption.value) {
-        SortingOption.DATE -> items.sortedByDescending { it.date }
-        SortingOption.SHOP -> items.sortedByDescending { it.shop }
-        SortingOption.RESULT -> items.sortedByDescending { it.result }
+        SortingOption.DATE -> items.value.sortedByDescending { it.date }
+        SortingOption.SHOP -> items.value.sortedBy { it.shop }
+        SortingOption.RESULT -> items.value.sortedByDescending { it.result }
     }
 
 
@@ -174,7 +172,7 @@ data class HistoryItem(
 
 fun generateDummyData(count: Int): List<HistoryItem> {
     val shops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан")
-    val results = listOf("Хороший", "Плохой", "Зеленый", "Красный", "Отличный")
+    val results = listOf("Хороший", "Плохой", "Зеленый")
 
     val random = Random()
     val items = mutableListOf<HistoryItem>()
