@@ -8,7 +8,7 @@ import compose.icons.feathericons.Camera
 import compose.icons.feathericons.User
 
 sealed class BottomItem(val title: String, val imageVector: ImageVector, val route: String) {
-    object ScreenCamera: BottomItem("Камера", FeatherIcons.Camera, "CameraScreen")
+    object ScreenCamera: BottomItem("Камера", FeatherIcons.Camera, "MainCameraScreen")
     object ScreenHistory: BottomItem("История", FeatherIcons.Archive, "HistoryScreen")
     object ScreenProfile: BottomItem("Профиль", FeatherIcons.User, "ProfileScreen")
 }

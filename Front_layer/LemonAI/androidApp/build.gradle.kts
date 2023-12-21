@@ -39,8 +39,20 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.camera:camera-core:1.3.1")
+    implementation ("androidx.camera:camera-camera2:1.3.1")
+    implementation ("androidx.camera:camera-lifecycle:1.3.1")
+    implementation ("androidx.camera:camera-extensions:1.3.1")
+
+    implementation ("com.google.accompanist:accompanist-permissions:0.32.0")
+
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
     implementation ("androidx.navigation:navigation-compose:2.7.6")
+
+    implementation ("androidx.compose.material:material:1.5.1")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
     implementation(projects.shared)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
@@ -48,5 +60,6 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.camera.view)
     debugImplementation(libs.compose.ui.tooling)
 }
