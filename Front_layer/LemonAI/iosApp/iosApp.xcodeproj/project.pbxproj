@@ -13,6 +13,9 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		EAEF4FF22B33711F00D56F61 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */; };
 		EAEF4FF42B33712D00D56F61 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */; };
+		EAEF4FF72B3428D000D56F61 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF62B3428D000D56F61 /* ProfileView.swift */; };
+		EAEF4FF92B3428EA00D56F61 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */; };
+		EAEF4FFB2B34291200D56F61 /* ScanHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */; };
 		F0AA44FD7986390992677EF3 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AB07843789AC64F52A2237 /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +31,9 @@
 		91AB07843789AC64F52A2237 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		EAEF4FF62B3428D000D56F61 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				EAEF4FF52B3424D000D56F61 /* ScreensModule */,
 				EAEF4FF02B33710700D56F61 /* AuthModule */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
@@ -97,6 +104,16 @@
 				EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */,
 			);
 			path = AuthModule;
+			sourceTree = "<group>";
+		};
+		EAEF4FF52B3424D000D56F61 /* ScreensModule */ = {
+			isa = PBXGroup;
+			children = (
+				EAEF4FF62B3428D000D56F61 /* ProfileView.swift */,
+				EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */,
+				EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */,
+			);
+			path = ScreensModule;
 			sourceTree = "<group>";
 		};
 		EAF1D5BD01AB00844BF2CF2E /* Frameworks */ = {
@@ -204,7 +221,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				EAEF4FFB2B34291200D56F61 /* ScanHistoryView.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				EAEF4FF72B3428D000D56F61 /* ProfileView.swift in Sources */,
+				EAEF4FF92B3428EA00D56F61 /* ScannerView.swift in Sources */,
 				EAEF4FF22B33711F00D56F61 /* AuthorizationView.swift in Sources */,
 				EAEF4FF42B33712D00D56F61 /* RegistrationView.swift in Sources */,
 			);
