@@ -17,6 +17,9 @@
 		EAEF4FF92B3428EA00D56F61 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */; };
 		EAEF4FFB2B34291200D56F61 /* ScanHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */; };
 		EAEF4FFE2B3430D300D56F61 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FFD2B3430D300D56F61 /* ProfileModel.swift */; };
+		EAEF50002B3452B100D56F61 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FFF2B3452B100D56F61 /* Scan.swift */; };
+		EAEF50022B34531400D56F61 /* ScanRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF50012B34531400D56F61 /* ScanRow.swift */; };
+		EAEF50042B3453D000D56F61 /* ScanTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF50032B3453D000D56F61 /* ScanTile.swift */; };
 		F0AA44FD7986390992677EF3 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AB07843789AC64F52A2237 /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 		EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryView.swift; sourceTree = "<group>"; };
 		EAEF4FFD2B3430D300D56F61 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		EAEF4FFF2B3452B100D56F61 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
+		EAEF50012B34531400D56F61 /* ScanRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRow.swift; sourceTree = "<group>"; };
+		EAEF50032B3453D000D56F61 /* ScanTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +117,10 @@
 		EAEF4FF52B3424D000D56F61 /* ScreensModule */ = {
 			isa = PBXGroup;
 			children = (
+				EAEF50072B3471DC00D56F61 /* Scanner */,
+				EAEF50052B3471AA00D56F61 /* ScanHistory */,
+				EAEF50062B3471D100D56F61 /* Profile */,
 				EAEF4FFC2B3430C300D56F61 /* Models */,
-				EAEF4FF62B3428D000D56F61 /* ProfileView.swift */,
-				EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */,
-				EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */,
 			);
 			path = ScreensModule;
 			sourceTree = "<group>";
@@ -123,8 +129,35 @@
 			isa = PBXGroup;
 			children = (
 				EAEF4FFD2B3430D300D56F61 /* ProfileModel.swift */,
+				EAEF4FFF2B3452B100D56F61 /* Scan.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EAEF50052B3471AA00D56F61 /* ScanHistory */ = {
+			isa = PBXGroup;
+			children = (
+				EAEF4FFA2B34291200D56F61 /* ScanHistoryView.swift */,
+				EAEF50012B34531400D56F61 /* ScanRow.swift */,
+				EAEF50032B3453D000D56F61 /* ScanTile.swift */,
+			);
+			path = ScanHistory;
+			sourceTree = "<group>";
+		};
+		EAEF50062B3471D100D56F61 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				EAEF4FF62B3428D000D56F61 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		EAEF50072B3471DC00D56F61 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				EAEF4FF82B3428EA00D56F61 /* ScannerView.swift */,
+			);
+			path = Scanner;
 			sourceTree = "<group>";
 		};
 		EAF1D5BD01AB00844BF2CF2E /* Frameworks */ = {
@@ -233,12 +266,15 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				EAEF4FFB2B34291200D56F61 /* ScanHistoryView.swift in Sources */,
+				EAEF50002B3452B100D56F61 /* Scan.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				EAEF4FF72B3428D000D56F61 /* ProfileView.swift in Sources */,
+				EAEF50022B34531400D56F61 /* ScanRow.swift in Sources */,
 				EAEF4FF92B3428EA00D56F61 /* ScannerView.swift in Sources */,
 				EAEF4FF22B33711F00D56F61 /* AuthorizationView.swift in Sources */,
 				EAEF4FF42B33712D00D56F61 /* RegistrationView.swift in Sources */,
 				EAEF4FFE2B3430D300D56F61 /* ProfileModel.swift in Sources */,
+				EAEF50042B3453D000D56F61 /* ScanTile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
