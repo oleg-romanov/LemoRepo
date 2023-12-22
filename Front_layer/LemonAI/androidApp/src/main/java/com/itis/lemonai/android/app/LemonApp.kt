@@ -11,7 +11,6 @@ import com.itis.lemonai.android.screens.SignInScreen
 import com.itis.lemonai.android.screens.SignUpScreen
 import com.itis.lemonai.android.navigation.AppRouter
 import com.itis.lemonai.android.navigation.Screen
-import com.itis.lemonai.android.screens.CameraScreen
 import com.itis.lemonai.android.screens.MainScreen
 import com.itis.lemonai.android.screens.ProfileScreen
 
@@ -41,13 +40,10 @@ fun LemonApp() {
                     HistoryScreen()
                 }
 
-                is Screen.CameraScreen -> {
-                    CameraScreen()
-                }
-
                 is Screen.ProfileScreen -> {
                     ProfileScreen()
                 }
+                else -> {SignUpScreen()}
             }
         }
 
