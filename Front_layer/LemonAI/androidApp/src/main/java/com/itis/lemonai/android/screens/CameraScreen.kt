@@ -99,6 +99,7 @@ private fun CameraContent(
                         mainExecutor,
                         object : ImageCapture.OnImageCapturedCallback() {
                             override fun onCaptureSuccess(image: ImageProxy) {
+                                isCaptured.value = false
                                 val correctedBitmap: Bitmap = image
                                     .toBitmap()
                                     .rotateBitmap(image.imageInfo.rotationDegrees)
