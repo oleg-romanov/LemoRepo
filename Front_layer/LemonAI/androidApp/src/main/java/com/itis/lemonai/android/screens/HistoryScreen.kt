@@ -48,8 +48,6 @@ fun HistoryScreen() {
 
     var items = remember { mutableStateOf(generateDummyData(100)) }
 
-    //var items: List<HistoryItem> //= generateDummyData(5)
-
     // Функция для сортировки элементов
     val sortedItems = when (sortingOption.value) {
         SortingOption.DATE -> items.value.sortedByDescending { it.date }

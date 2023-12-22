@@ -18,10 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.itis.lemonai.CurrentUser
 import com.itis.lemonai.android.components.LogoutDialog
 import com.itis.lemonai.android.components.ProfileField
 import com.itis.lemonai.android.navigation.AppRouter
 import com.itis.lemonai.android.navigation.Screen
+import com.itis.lemonai.clearCurrentUser
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Info
 import compose.icons.feathericons.LogOut
@@ -29,9 +31,9 @@ import compose.icons.feathericons.User
 
 @Composable
 fun ProfileScreen() {
-    var firstName = remember { mutableStateOf("John") }
-    var lastName = remember { mutableStateOf("Doe") }
-    var username =remember { mutableStateOf("johndoe") }
+    var firstName = remember { mutableStateOf(CurrentUser.name) }
+    var lastName = remember { mutableStateOf(CurrentUser.surname) }
+    var username =remember { mutableStateOf(CurrentUser.login) }
 
     var isLoggingOut = remember { mutableStateOf(false) }
 
@@ -80,11 +82,8 @@ fun ProfileScreen() {
         if (isLoggingOut.value) {
             LogoutDialog(
                 onConfirm = {
+                    clearCurrentUser()
                     AppRouter.navigateTo(Screen.SignUpScreen)
-                    // Действие по выходу из аккаунта
-                    // Например, переход на экран входа или отправка запроса на сервер
-                    // Далее можно завершить текущую активити
-                    // finish()
                 },
                 onDismiss = { isLoggingOut.value = false }
             )
