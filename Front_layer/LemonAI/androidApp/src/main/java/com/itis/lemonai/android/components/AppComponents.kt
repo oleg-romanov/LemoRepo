@@ -85,7 +85,7 @@ fun HeadingTextComponent(value: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTextFieldComponent(labelValue: String) {
+fun MyTextFieldComponent(labelValue: String, onTextChanged: (String) -> Unit) {
 
     val textValue = remember {
         mutableStateOf("")
@@ -105,6 +105,7 @@ fun MyTextFieldComponent(labelValue: String) {
         value = textValue.value,
         onValueChange = {
             textValue.value = it
+            onTextChanged.invoke(it)
         },
     )
 }
@@ -113,6 +114,7 @@ fun MyTextFieldComponent(labelValue: String) {
 @Composable
 fun PasswordTextFieldComponent(
     labelValue: String
+    ,onPasswordChanged: (String) -> Unit
 ) {
 
     val localFocusManager = LocalFocusManager.current
@@ -139,6 +141,7 @@ fun PasswordTextFieldComponent(
         value = password.value,
         onValueChange = {
             password.value = it
+            onPasswordChanged.invoke(it)
         },
         trailingIcon = {
             val iconImage = if (passwordVisible.value) {
