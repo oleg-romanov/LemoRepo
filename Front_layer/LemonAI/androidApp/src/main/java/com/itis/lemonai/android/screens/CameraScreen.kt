@@ -30,7 +30,10 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,7 +47,9 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
@@ -70,6 +75,7 @@ fun CameraScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CameraContent(
     //onPhotoCaptured: (Bitmap) -> Unit,
@@ -86,12 +92,25 @@ private fun CameraContent(
 
     val itemsShops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан", "Лента", "Метро")
 
+    var result by remember { mutableStateOf("") }
+
     val context: Context = LocalContext.current
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     val cameraController: LifecycleCameraController =
         remember { LifecycleCameraController(context) }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                colors = topAppBarColors(
+                    containerColor = androidx.compose.ui.graphics.Color.White,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = {
+                    Text(text = "Результат: " + result, textAlign = TextAlign.Center, fontSize = 20.sp)
+                }
+            )
+        },
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             ExtendedFloatingActionButton(
