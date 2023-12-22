@@ -32,10 +32,10 @@ private fun NoPermissionContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Please grant the permission to use the camera to use the core functionality of this app.")
+        Text(text = "Пожалуйста, разрешите приложению использовать камеру.")
         Button(onClick = onRequestPermission) {
-            Icon(imageVector = FeatherIcons.Camera, contentDescription = "Camera")
-            Text(text = "Grant permission")
+            Icon(imageVector = FeatherIcons.Camera, contentDescription = "Камера")
+            Text(text = "Дать разрешение")
         }
     }
 }

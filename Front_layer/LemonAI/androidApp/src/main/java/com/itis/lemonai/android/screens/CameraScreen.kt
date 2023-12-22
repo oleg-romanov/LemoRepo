@@ -9,6 +9,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -30,7 +31,10 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -44,18 +48,33 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.itis.lemonai.CurrentUser
+import com.itis.lemonai.ImagePostItem
+import com.itis.lemonai.User
 import com.itis.lemonai.android.components.Primary
 import com.itis.lemonai.android.components.Secondary
+import com.itis.lemonai.android.navigation.AppRouter
+import com.itis.lemonai.android.navigation.Screen
+import com.itis.lemonai.httpAddUser
+import com.itis.lemonai.httpSendImage
 import java.util.concurrent.Executor
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Camera
 import compose.icons.feathericons.Check
 import compose.icons.feathericons.Send
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -70,21 +89,22 @@ fun CameraScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CameraContent(
     //onPhotoCaptured: (Bitmap) -> Unit,
     //lastCapturedPhoto: Bitmap? = null
 ) {
     var lastCapturedPhoto: Bitmap? = null
-
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     var isCaptured = remember { mutableStateOf(false) }
-
-    var base64Image: String?
 
     var expanded by remember { mutableStateOf(false) }
     var selectedShop by remember { mutableStateOf("Магнит") }
 
     val itemsShops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан", "Лента", "Метро")
+
+    var result by remember { mutableStateOf("") }
 
     val context: Context = LocalContext.current
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
@@ -92,6 +112,21 @@ private fun CameraContent(
         remember { LifecycleCameraController(context) }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                colors = topAppBarColors(
+                    containerColor = androidx.compose.ui.graphics.Color.White,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                ),
+                title = {
+                    Text(
+                        text = "Результат: " + result,
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp
+                    )
+                }
+            )
+        },
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             ExtendedFloatingActionButton(
@@ -175,7 +210,6 @@ private fun CameraContent(
                     text = { Text(text = "Отправить фото") },
                     onClick = {
                         expanded = true
-                        base64Image = encodeImage(lastCapturedPhoto!!)
                     },
                     icon = {
                         Icon(
@@ -206,12 +240,39 @@ private fun CameraContent(
                         DropdownMenuItem(text = { androidx.compose.material3.Text(shop) },
                             onClick = {
                                 selectedShop = shop
+
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    result = withContext(Dispatchers.Default) {
+                                        httpSendImage(
+                                            ImagePostItem(
+                                                CurrentUser.login,
+                                                LocalDate.now().format(dateFormat).toString(),
+                                                encodeImage(lastCapturedPhoto!!).toString(),
+                                                selectedShop
+                                            )
+                                        )
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        if (result != "") {
+                                            // Запрос выполнен успешно
+                                        } else {
+                                            // Произошла ошибка
+                                            Toast.makeText(
+                                                context,
+                                                "Произошла ошибка",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
                                 expanded = false
                             }
                         )
                         if (index < itemsShops.size - 1) {
-                            Divider(modifier = Modifier.padding(horizontal = 8.dp),
-                            color = androidx.compose.ui.graphics.Color.Black)
+                            Divider(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                color = androidx.compose.ui.graphics.Color.Black
+                            )
                         }
                     }
                 }
