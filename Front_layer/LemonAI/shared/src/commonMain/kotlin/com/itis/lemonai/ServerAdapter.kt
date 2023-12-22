@@ -35,6 +35,11 @@ fun clearCurrentUser(){
 }
 
 @Serializable
+data class UserLogin(
+    val Login: String,
+    val Password: String,
+)
+@Serializable
 data class User(
     val Login: String,
     val Password: String,
@@ -47,6 +52,19 @@ data class HistoryItem(
     val Date: String,
     val Result: String,
     val Shop: String
+)
+
+@Serializable
+data class ImagePostItem(
+    val Login: String,
+    val Date: String,
+    val Image: String,
+    val Shop: String
+)
+
+@Serializable
+data class HistoryItems(
+    val HistoryItemsList: List<HistoryItem>
 )
 
 suspend fun httpAddUser(user: User): Boolean {
@@ -70,14 +88,49 @@ suspend fun httpAddUser(user: User): Boolean {
     }
 }
 
+suspend fun httpGetUser(userLogin: UserLogin): Boolean {
+    val client = HttpClient(){
+        install(ContentNegotiation){
+            json()
+        }
+    }
+    val user: User = client.get("$BASE_URL/get_user") {
+        contentType(ContentType.Application.Json)
+        setBody(userLogin)
+    }.body()
+    client.close()
+    return if (user != null){
+        CurrentUser.name = user.Name
+        CurrentUser.surname = user.Surname
+        CurrentUser.login = user.Login
+        true
+    }else{
+        false
+    }
+}
+
 suspend fun httpGetHistory(login: String): List<HistoryItem> {
     val client = HttpClient(){
         install(ContentNegotiation){
             json()
         }
     }
-    val historyItem: HistoryItem = client.get("$BASE_URL/$login").body()
+    val historyItems: HistoryItems = client.get("$BASE_URL/$login").body()
     client.close()
 
     return listOf()
+}
+
+suspend fun httpSendImage(imageItem: ImagePostItem): String {
+    val client = HttpClient(){
+        install(ContentNegotiation){
+            json()
+        }
+    }
+    val result: String = client.post("$BASE_URL/add_user") {
+        contentType(ContentType.Application.Json)
+        setBody(imageItem)
+    }.body()
+    client.close()
+    return result
 }
