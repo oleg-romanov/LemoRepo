@@ -9,6 +9,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
@@ -53,14 +54,27 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.itis.lemonai.CurrentUser
+import com.itis.lemonai.ImagePostItem
+import com.itis.lemonai.User
 import com.itis.lemonai.android.components.Primary
 import com.itis.lemonai.android.components.Secondary
+import com.itis.lemonai.android.navigation.AppRouter
+import com.itis.lemonai.android.navigation.Screen
+import com.itis.lemonai.httpAddUser
+import com.itis.lemonai.httpSendImage
 import java.util.concurrent.Executor
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Camera
 import compose.icons.feathericons.Check
 import compose.icons.feathericons.Send
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -82,10 +96,8 @@ private fun CameraContent(
     //lastCapturedPhoto: Bitmap? = null
 ) {
     var lastCapturedPhoto: Bitmap? = null
-
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     var isCaptured = remember { mutableStateOf(false) }
-
-    var base64Image: String?
 
     var expanded by remember { mutableStateOf(false) }
     var selectedShop by remember { mutableStateOf("Магнит") }
@@ -107,7 +119,11 @@ private fun CameraContent(
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text(text = "Результат: " + result, textAlign = TextAlign.Center, fontSize = 20.sp)
+                    Text(
+                        text = "Результат: " + result,
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp
+                    )
                 }
             )
         },
@@ -194,7 +210,6 @@ private fun CameraContent(
                     text = { Text(text = "Отправить фото") },
                     onClick = {
                         expanded = true
-                        base64Image = encodeImage(lastCapturedPhoto!!)
                     },
                     icon = {
                         Icon(
@@ -225,12 +240,39 @@ private fun CameraContent(
                         DropdownMenuItem(text = { androidx.compose.material3.Text(shop) },
                             onClick = {
                                 selectedShop = shop
+
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    result = withContext(Dispatchers.Default) {
+                                        httpSendImage(
+                                            ImagePostItem(
+                                                CurrentUser.login,
+                                                LocalDate.now().format(dateFormat).toString(),
+                                                encodeImage(lastCapturedPhoto!!).toString(),
+                                                selectedShop
+                                            )
+                                        )
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        if (result != "") {
+                                            // Запрос выполнен успешно
+                                        } else {
+                                            // Произошла ошибка
+                                            Toast.makeText(
+                                                context,
+                                                "Произошла ошибка",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
+                                }
                                 expanded = false
                             }
                         )
                         if (index < itemsShops.size - 1) {
-                            Divider(modifier = Modifier.padding(horizontal = 8.dp),
-                            color = androidx.compose.ui.graphics.Color.Black)
+                            Divider(
+                                modifier = Modifier.padding(horizontal = 8.dp),
+                                color = androidx.compose.ui.graphics.Color.Black
+                            )
                         }
                     }
                 }
