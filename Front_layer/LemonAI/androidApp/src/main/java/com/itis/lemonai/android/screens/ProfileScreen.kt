@@ -23,11 +23,9 @@ import com.itis.lemonai.android.components.LogoutDialog
 import com.itis.lemonai.android.components.ProfileField
 import com.itis.lemonai.android.navigation.AppRouter
 import com.itis.lemonai.android.navigation.Screen
-import com.itis.lemonai.clearCurrentUser
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Info
 import compose.icons.feathericons.LogOut
-import compose.icons.feathericons.User
 
 @Composable
 fun ProfileScreen() {
@@ -82,7 +80,7 @@ fun ProfileScreen() {
         if (isLoggingOut.value) {
             LogoutDialog(
                 onConfirm = {
-                    clearCurrentUser()
+                    CurrentUser.clearCurrentUser()
                     AppRouter.navigateTo(Screen.SignUpScreen)
                 },
                 onDismiss = { isLoggingOut.value = false }

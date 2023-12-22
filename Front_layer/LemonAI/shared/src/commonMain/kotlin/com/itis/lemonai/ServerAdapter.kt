@@ -22,23 +22,25 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 private const val BASE_URL = "http://10.0.2.2:5050"
-object CurrentUser {
+
+object CurrentUser { //КОСТЫЛЬ КОСТЫЛИЧ
     var login: String = ""
     var name: String = ""
     var surname: String = ""
+    fun clearCurrentUser() {
+        login = ""
+        name = ""
+        surname = ""
+    }
 }
 
-fun clearCurrentUser(){
-    CurrentUser.login = ""
-    CurrentUser.name = ""
-    CurrentUser.surname = ""
-}
 
 @Serializable
 data class UserLogin(
     val Login: String,
     val Password: String,
 )
+
 @Serializable
 data class User(
     val Login: String,
@@ -46,6 +48,7 @@ data class User(
     val Name: String,
     val Surname: String
 )
+
 @Serializable
 data class HistoryItem(
     val Login: String,
@@ -67,9 +70,9 @@ data class HistoryItems(
     val HistoryItemsList: List<HistoryItem>
 )
 
-suspend fun httpAddUser(user: User): Boolean {
-    val client = HttpClient(){
-        install(ContentNegotiation){
+suspend fun httpAddUser(user: User): Boolean { //ШОК!!! ОНО РАБОТАЕТ
+    val client = HttpClient() {
+        install(ContentNegotiation) {
             json()
         }
     }
@@ -78,19 +81,19 @@ suspend fun httpAddUser(user: User): Boolean {
         setBody(user)
     }.body()
     client.close()
-    return if (response.status.value in 200..299){
+    return if (response.status.value in 200..299) {
         CurrentUser.name = user.Name
         CurrentUser.surname = user.Surname
         CurrentUser.login = user.Login
         true
-    }else{
+    } else {
         false
     }
 }
 
-suspend fun httpGetUser(userLogin: UserLogin): Boolean {
-    val client = HttpClient(){
-        install(ContentNegotiation){
+suspend fun httpGetUser(userLogin: UserLogin): Boolean { //ДОЛЖНО РАБОТАТЬ С БОЛЬШОЙ ВЕРОЯТНОСТЬЮ
+    val client = HttpClient() {
+        install(ContentNegotiation) {
             json()
         }
     }
@@ -99,31 +102,30 @@ suspend fun httpGetUser(userLogin: UserLogin): Boolean {
         setBody(userLogin)
     }.body()
     client.close()
-    return if (user != null){
+    return if (user.Login != "") {
         CurrentUser.name = user.Name
         CurrentUser.surname = user.Surname
         CurrentUser.login = user.Login
         true
-    }else{
+    } else {
         false
     }
 }
 
-suspend fun httpGetHistory(login: String): List<HistoryItem> {
-    val client = HttpClient(){
-        install(ContentNegotiation){
+suspend fun httpGetHistory(login: String): List<HistoryItem> { //ОЛЕГ ПОЧИНИ
+    val client = HttpClient() {
+        install(ContentNegotiation) {
             json()
         }
     }
     val historyItems: HistoryItems = client.get("$BASE_URL/$login").body()
     client.close()
-
     return listOf()
 }
 
-suspend fun httpSendImage(imageItem: ImagePostItem): String {
-    val client = HttpClient(){
-        install(ContentNegotiation){
+suspend fun httpSendImage(imageItem: ImagePostItem): String { //ХЗ РАБОТАЕТ ЛИ
+    val client = HttpClient() {
+        install(ContentNegotiation) {
             json()
         }
     }
