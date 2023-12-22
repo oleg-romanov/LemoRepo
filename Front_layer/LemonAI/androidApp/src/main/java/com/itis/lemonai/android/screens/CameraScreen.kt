@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Matrix
+import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
@@ -23,15 +24,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExtendedFloatingActionButton
-import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material3.FloatingActionButtonDefaults.containerColor
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
@@ -50,8 +54,8 @@ import java.util.concurrent.Executor
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Camera
 import compose.icons.feathericons.Check
-import compose.icons.feathericons.Filter
 import compose.icons.feathericons.Send
+import java.io.ByteArrayOutputStream
 
 
 @Composable
@@ -74,6 +78,13 @@ private fun CameraContent(
     var lastCapturedPhoto: Bitmap? = null
 
     var isCaptured = remember { mutableStateOf(false) }
+
+    var base64Image: String?
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedShop by remember { mutableStateOf("Магнит") }
+
+    val itemsShops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан", "Лента", "Метро")
 
     val context: Context = LocalContext.current
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
@@ -110,7 +121,7 @@ private fun CameraContent(
                             }
 
                             override fun onError(exception: ImageCaptureException) {
-                                Log.e("aboba", "Capture error: ${exception.message}", exception)
+                                Log.e("Error", "Capture error: ${exception.message}", exception)
                             }
                         }
                     )
@@ -163,7 +174,8 @@ private fun CameraContent(
                     backgroundColor = androidx.compose.ui.graphics.Color.Transparent,
                     text = { Text(text = "Отправить фото") },
                     onClick = {
-
+                        expanded = true
+                        base64Image = encodeImage(lastCapturedPhoto!!)
                     },
                     icon = {
                         Icon(
@@ -174,11 +186,37 @@ private fun CameraContent(
                 )
                 LastPhotoPreview(
                     modifier = Modifier
-                        .align(alignment = TopStart)
-                        ,
+                        .align(alignment = TopStart),
                     lastCapturedPhoto = lastCapturedPhoto!!
                 )
             }
+
+            if (expanded) {
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(listOf(Secondary, Primary)),
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    itemsShops.forEachIndexed { index, shop ->
+                        DropdownMenuItem(text = { androidx.compose.material3.Text(shop) },
+                            onClick = {
+                                selectedShop = shop
+                                expanded = false
+                            }
+                        )
+                        if (index < itemsShops.size - 1) {
+                            Divider(modifier = Modifier.padding(horizontal = 8.dp),
+                            color = androidx.compose.ui.graphics.Color.Black)
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
@@ -214,5 +252,12 @@ fun Bitmap.rotateBitmap(rotationDegrees: Int): Bitmap {
     }
 
     return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+}
+
+fun encodeImage(bm: Bitmap): String? {
+    val baos = ByteArrayOutputStream()
+    bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+    val b = baos.toByteArray()
+    return Base64.encodeToString(b, Base64.DEFAULT)
 }
 

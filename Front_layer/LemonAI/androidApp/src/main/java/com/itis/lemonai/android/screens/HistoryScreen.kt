@@ -171,7 +171,7 @@ data class HistoryItem(
 )
 
 fun generateDummyData(count: Int): List<HistoryItem> {
-    val shops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан")
+    val shops = listOf("Магнит", "Пятерочка", "Перекресток", "Дикси", "Ашан", "Лента", "Метро")
     val results = listOf("Хороший", "Плохой", "Зеленый")
 
     val random = Random()
