@@ -50,11 +50,23 @@ data class User(
 )
 
 @Serializable
+data class UserNoPas(
+    val Login: String,
+    val Name: String,
+    val Surname: String
+)
+
+@Serializable
 data class HistoryItem(
     val Login: String,
     val Date: String,
     val Result: String,
     val Shop: String
+)
+
+@Serializable
+data class UserLog(
+    val Login: String
 )
 
 @Serializable
@@ -70,7 +82,7 @@ data class HistoryItems(
     val HistoryItemsList: List<HistoryItem>
 )
 
-suspend fun httpAddUser(user: User): Boolean { //ШОК!!! ОНО РАБОТАЕТ
+suspend fun httpAddUser(user: User): Boolean {
     val client = HttpClient() {
         install(ContentNegotiation) {
             json()
@@ -91,13 +103,13 @@ suspend fun httpAddUser(user: User): Boolean { //ШОК!!! ОНО РАБОТАЕ
     }
 }
 
-suspend fun httpGetUser(userLogin: UserLogin): Boolean { //ДОЛЖНО РАБОТАТЬ С БОЛЬШОЙ ВЕРОЯТНОСТЬЮ
+suspend fun httpGetUser(userLogin: UserLogin): Boolean {
     val client = HttpClient() {
         install(ContentNegotiation) {
             json()
         }
     }
-    val user: User = client.get("$BASE_URL/get_user") {
+    val user: UserNoPas = client.post("$BASE_URL/auth") {
         contentType(ContentType.Application.Json)
         setBody(userLogin)
     }.body()
@@ -112,24 +124,28 @@ suspend fun httpGetUser(userLogin: UserLogin): Boolean { //ДОЛЖНО РАБО
     }
 }
 
-suspend fun httpGetHistory(login: String): List<HistoryItem> { //ОЛЕГ ПОЧИНИ
+suspend fun httpGetHistory(login: String): List<HistoryItem> {
     val client = HttpClient() {
         install(ContentNegotiation) {
             json()
         }
     }
-    val historyItems: HistoryItems = client.get("$BASE_URL/$login").body()
+    val userLogin = UserLog(login)
+    val historyItems: HistoryItems = client.post("$BASE_URL/get_history"){
+        contentType(ContentType.Application.Json)
+        setBody(userLogin)
+    }.body()
     client.close()
-    return listOf()
+    return historyItems.HistoryItemsList
 }
 
-suspend fun httpSendImage(imageItem: ImagePostItem): String { //ХЗ РАБОТАЕТ ЛИ
+suspend fun httpSendImage(imageItem: ImagePostItem): String {
     val client = HttpClient() {
         install(ContentNegotiation) {
             json()
         }
     }
-    val result: String = client.post("$BASE_URL/add_user") {
+    val result: String = client.post("$BASE_URL/result") {
         contentType(ContentType.Application.Json)
         setBody(imageItem)
     }.body()

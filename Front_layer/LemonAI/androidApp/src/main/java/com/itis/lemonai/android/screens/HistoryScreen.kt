@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,17 +30,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.itis.lemonai.CurrentUser
-import com.itis.lemonai.HistoryItem
 import com.itis.lemonai.android.components.Primary
 import com.itis.lemonai.android.components.Secondary
-import com.itis.lemonai.httpGetHistory
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.List
 import compose.icons.feathericons.Grid
 import compose.icons.feathericons.Filter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -54,22 +48,20 @@ fun HistoryScreen() {
     var expanded = remember { mutableStateOf(false) }
     var sortingOption = remember { mutableStateOf(SortingOption.DATE) }
 
-    var items by remember {
-        mutableStateOf<List<HistoryItem>>(emptyList())
-    }
+    var items by remember { mutableStateOf(generateDummyData(100)) }
 
-    LaunchedEffect(Unit) {
+    /* LaunchedEffect(Unit) {
         val result = withContext(Dispatchers.IO) {
             httpGetHistory(CurrentUser.login)
         }
         items = result ?: emptyList()
-    }
+    } */
 
     // Функция для сортировки элементов
     val sortedItems = when (sortingOption.value) {
-        SortingOption.DATE -> items.sortedByDescending { it.Date }
-        SortingOption.SHOP -> items.sortedBy { it.Shop }
-        SortingOption.RESULT -> items.sortedByDescending { it.Result }
+        SortingOption.DATE -> items.sortedByDescending { it.date }
+        SortingOption.SHOP -> items.sortedBy { it.shop }
+        SortingOption.RESULT -> items.sortedByDescending { it.result }
     }
 
 
@@ -147,9 +139,9 @@ fun ListItem(item: HistoryItem) {
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        Text(text = "Дата: ${item.Date}", fontWeight = FontWeight.Bold)
-        Text(text = "Магазин: ${item.Shop}")
-        Text(text = "Результат: ${item.Result}")
+        Text(text = "Дата: ${item.date}", fontWeight = FontWeight.Bold)
+        Text(text = "Магазин: ${item.shop}")
+        Text(text = "Результат: ${item.result}")
     }
 }
 
@@ -161,7 +153,7 @@ fun GridItem(item: HistoryItem) {
             .padding(8.dp)
     ) {
         Text(
-            text = item.Date,
+            text = item.date,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Gray)
@@ -170,8 +162,8 @@ fun GridItem(item: HistoryItem) {
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
-        Text(text = "Магазин: ${item.Shop}", modifier = Modifier.padding(top = 4.dp))
-        Text(text = "Результат: ${item.Result}", modifier = Modifier.padding(top = 4.dp))
+        Text(text = "Магазин: ${item.shop}", modifier = Modifier.padding(top = 4.dp))
+        Text(text = "Результат: ${item.result}", modifier = Modifier.padding(top = 4.dp))
     }
 }
 
@@ -180,7 +172,7 @@ enum class SortingOption(val label: String) {
     SHOP("По магазину"),
     RESULT("По результату")
 }
-/*
+
 data class HistoryItem(
     val date: String,
     val shop: String,
@@ -209,4 +201,4 @@ fun generateRandomDate(): String {
     calendar.add(Calendar.DAY_OF_YEAR, -Random().nextInt(365)) // Генерация дат в течение последнего года
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return dateFormat.format(calendar.time)
-} */
+}
