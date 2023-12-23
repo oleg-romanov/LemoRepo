@@ -7,7 +7,7 @@ def remove_bg(file_path):
     if file_path.lower().endswith(('.png', '.jpg', '.jpeg')):
         print(f'[+] Удаляю фон: "{file_path}"...')
         output = remove(Image.open(file_path))
-        resized_output = output.resize((225, 225))
+        resized_output = output.resize((255, 255))
         output_path = os.path.join(os.path.dirname(file_path), 'out.png')
         resized_output.save(output_path)
 
