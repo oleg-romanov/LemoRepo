@@ -1,6 +1,8 @@
+import flask
 from flask import Flask, jsonify, request
 
 from Back_layer.db.DB_actions import Connection
+import Back_layer.db.clearback
 
 app = Flask(__name__)
 connection = Connection("127.0.0.1", "postgres", "postgres", "`123qwe")
@@ -35,7 +37,19 @@ def add_user():
     connection.user_insert(login, password, name, surname)
     return  jsonify(status = 200)
 
+@app.route("/auth", methods=['POST'])
+def authentication():
+    login = request.json["Login"]
+    password = request.json["Password"]
 
+    data = connection.check_auth(login)
+    if not data:
+        return "No such client", 404
+    else:
+        if data[1] != password:
+            return "Bad password", 501
+        else:
+            return jsonify({"Login" : data[0], "Name" : data[2], "Surname" : data[3]}), 200
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050)
