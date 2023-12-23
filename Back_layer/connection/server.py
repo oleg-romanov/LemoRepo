@@ -1,15 +1,18 @@
-import flask
+import tempfile
+import base64
 from flask import Flask, jsonify, request
-
 from Back_layer.db.DB_actions import Connection
-import Back_layer.db.clearback
+from Back_layer.db.clearback import remove_bg
+from Back_layer.db.AI_process import predict_image_quality
 
 app = Flask(__name__)
 connection = Connection("127.0.0.1", "postgres", "postgres", "`123qwe")
 connection.table_creation()
+model_url = 'E:\\LemoRepo\\lemon_quality_with_green_new_dataset12121.h5'
 
-@app.route("/get/<login>", methods=['GET'])
-def get_history(login):
+@app.route("/get_history", methods=['POST'])
+def get_history():
+    login = request.json["Login"]
     history = []
     for items in connection.get_history(login):
         history.append(
@@ -50,6 +53,24 @@ def authentication():
             return "Bad password", 501
         else:
             return jsonify({"Login" : data[0], "Name" : data[2], "Surname" : data[3]}), 200
+
+
+@app.route('/result', methods=['POST'])
+def AI_scanning():
+    login = request.json["Login"]
+    date = request.json["Date"]
+    image = request.json["Image"]
+    shop = request.json["Shop"]
+    data = base64.b64decode(image)
+
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        print('created temporary directory', tmpdirname)
+        with open(f"{tmpdirname}\\in.jpg", 'wb') as file:
+            file.write(data)
+        result = predict_image_quality(model_url, remove_bg(f"{tmpdirname}\\in.jpg"))
+        connection.history_insert(login, date, result, shop)
+
+        return result
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5050)
