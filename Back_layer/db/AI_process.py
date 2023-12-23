@@ -7,9 +7,7 @@ from io import BytesIO
 def predict_image_quality(model_url, image_path, target_size=(255, 255)):
     try:
         # Загрузка модели из файла .h5
-        response = requests.get(model_url)
-        response.raise_for_status()
-        model = load_model(BytesIO(response.content))
+        model = load_model(model_url)
 
         # Загрузка и предобработка изображения для предсказания
         img = image.load_img(image_path, target_size=target_size)
@@ -26,12 +24,8 @@ def predict_image_quality(model_url, image_path, target_size=(255, 255)):
         predicted_quality = labels[predicted_class]
 
         print(f"The predicted quality for the input image is: {predicted_quality}")
+        return predicted_quality
 
     except Exception as e:
         print(f"Ошибка при выполнении предсказания: {e}")
 
-# Пример использования функции с Google Drive
-model_url = 'https://github.com/oleg-romanov/LemoRepo/blob/main/Back_layer/AI/lemon_quality_dataset.h5'
-image_path = input("Введите путь к изображению: ")
-
-predict_image_quality(model_url, image_path)

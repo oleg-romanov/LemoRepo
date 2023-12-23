@@ -12,5 +12,4 @@ def remove_bg(file_path):
         resized_output.save(output_path)
 
         print(f'[+] Фон удален и сохранен в новом файле: "{output_path}"')
-    else:
-        print(f'[-] Неверный формат файла. Поддерживаются только PNG, JPG и JPEG.')
+        return output_path
