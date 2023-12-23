@@ -67,4 +67,17 @@ class Connection:
                        f"Shop"
                        f"   FROM History"
                        f"   WHERE login='{login}'")
-        return [item for item in cursor]
+        return cursor
+
+    def check_auth(self, login):
+        cursor = self.conn.cursor()
+
+        cursor.execute(f"SELECT "
+                       f"Login, "
+                       f"Password, "
+                       f"Name, "
+                       f"Surname"
+                       f"   FROM Users"
+                       f"   WHERE login='{login}'")
+
+        return cursor.fetchone()
