@@ -14,7 +14,7 @@
 
 ## Tech Stack
 
-**Client:** Jetpack compose, SwiftUI, Ktor, Kotlin Courutines, Kotlin, Swift
+**Client:** KMM, Jetpack compose, SwiftUI, Ktor, Kotlin Courutines, Kotlin, Swift
 
 **Server:** Postgres, flask, psycopg2
 
@@ -24,7 +24,7 @@
 Для развертки этого проектка необходимо:
 
 ```bash
-  pip install -r Pipfile.txt
+  pipenv install
 ```
 
 Заменить в server.py параметры connection и ссылку на нейронную модель model_url
