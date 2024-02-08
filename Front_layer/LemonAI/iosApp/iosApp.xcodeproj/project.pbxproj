@@ -11,6 +11,11 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		EA8CD8E02B6EC016005C858C /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD8DF2B6EC016005C858C /* RegistrationViewModel.swift */; };
+		EA8CD8E42B6EC499005C858C /* RegistrationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD8E32B6EC499005C858C /* RegistrationModel.swift */; };
+		EA8CD8E72B6FA9B8005C858C /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD8E62B6FA9B8005C858C /* InputView.swift */; };
+		EA8CD8EA2B7178D1005C858C /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD8E92B7178D1005C858C /* AuthorizationViewModel.swift */; };
+		EA8CD8ED2B7179D1005C858C /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8CD8EC2B7179D1005C858C /* AuthModel.swift */; };
 		EAEF4FF22B33711F00D56F61 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */; };
 		EAEF4FF42B33712D00D56F61 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */; };
 		EAEF4FF72B3428D000D56F61 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAEF4FF62B3428D000D56F61 /* ProfileView.swift */; };
@@ -33,6 +38,11 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91AB07843789AC64F52A2237 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA8CD8DF2B6EC016005C858C /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		EA8CD8E32B6EC499005C858C /* RegistrationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModel.swift; sourceTree = "<group>"; };
+		EA8CD8E62B6FA9B8005C858C /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		EA8CD8E92B7178D1005C858C /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
+		EA8CD8EC2B7179D1005C858C /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		EAEF4FF62B3428D000D56F61 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -85,6 +95,8 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				EA8CD8E52B6FA9A2005C858C /* Components */,
+				EA8CD8DC2B6EBA63005C858C /* Service */,
 				EAEF4FF52B3424D000D56F61 /* ScreensModule */,
 				EAEF4FF02B33710700D56F61 /* AuthModule */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -105,11 +117,78 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EA8CD8DC2B6EBA63005C858C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		EA8CD8DD2B6EBFEE005C858C /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8EB2B7179C5005C858C /* Model */,
+				EA8CD8E82B7178B4005C858C /* ViewModel */,
+				EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */,
+			);
+			path = Authorization;
+			sourceTree = "<group>";
+		};
+		EA8CD8DE2B6EBFF8005C858C /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8E22B6EC484005C858C /* Model */,
+				EA8CD8E12B6EC019005C858C /* ViewModel */,
+				EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		EA8CD8E12B6EC019005C858C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8DF2B6EC016005C858C /* RegistrationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EA8CD8E22B6EC484005C858C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8E32B6EC499005C858C /* RegistrationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EA8CD8E52B6FA9A2005C858C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8E62B6FA9B8005C858C /* InputView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EA8CD8E82B7178B4005C858C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8E92B7178D1005C858C /* AuthorizationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EA8CD8EB2B7179C5005C858C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EA8CD8EC2B7179D1005C858C /* AuthModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EAEF4FF02B33710700D56F61 /* AuthModule */ = {
 			isa = PBXGroup;
 			children = (
-				EAEF4FF12B33711F00D56F61 /* AuthorizationView.swift */,
-				EAEF4FF32B33712D00D56F61 /* RegistrationView.swift */,
+				EA8CD8DE2B6EBFF8005C858C /* Registration */,
+				EA8CD8DD2B6EBFEE005C858C /* Authorization */,
 			);
 			path = AuthModule;
 			sourceTree = "<group>";
@@ -265,14 +344,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				EA8CD8E72B6FA9B8005C858C /* InputView.swift in Sources */,
+				EA8CD8E02B6EC016005C858C /* RegistrationViewModel.swift in Sources */,
 				EAEF4FFB2B34291200D56F61 /* ScanHistoryView.swift in Sources */,
 				EAEF50002B3452B100D56F61 /* Scan.swift in Sources */,
+				EA8CD8E42B6EC499005C858C /* RegistrationModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				EAEF4FF72B3428D000D56F61 /* ProfileView.swift in Sources */,
 				EAEF50022B34531400D56F61 /* ScanRow.swift in Sources */,
+				EA8CD8EA2B7178D1005C858C /* AuthorizationViewModel.swift in Sources */,
 				EAEF4FF92B3428EA00D56F61 /* ScannerView.swift in Sources */,
 				EAEF4FF22B33711F00D56F61 /* AuthorizationView.swift in Sources */,
 				EAEF4FF42B33712D00D56F61 /* RegistrationView.swift in Sources */,
+				EA8CD8ED2B7179D1005C858C /* AuthModel.swift in Sources */,
 				EAEF4FFE2B3430D300D56F61 /* ProfileModel.swift in Sources */,
 				EAEF50042B3453D000D56F61 /* ScanTile.swift in Sources */,
 			);
